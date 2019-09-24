@@ -1,0 +1,62 @@
+{% extends 'make_charts/base.html' %}
+{% block content %}
+
+<form action="TODO" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <div class="form-row">
+      <div class="col">
+        <label for="exampleFormControlInput1">Resource</label>
+        <input type="text" class="form-control" placeholder="Cracking the Coding Interview">
+      </div>
+      <div class="col">
+        <label for="TODO">Date:</label>
+        <input type="date" class="form-control" name="TODO">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-row">
+      <div class="col">
+        <label for="TODO">URL or page number:</label>
+        <input type="text" class="form-control" name="TODO">
+      </div>
+      <div class="col">
+        <label for="exampleFormControlSelect1">Existing Topic</label>
+        <select class="form-control" name="exampleFormControlSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Existing Topic</label>
+    <select class="form-control" name="exampleFormControlSelect1">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <div class="form-row">
+      <div class="col">
+        <label for="exampleFormControlTextarea1">Notes/Reflections:</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+      </div>
+      <!--<div class="col">
+        <label for="exampleFormControlTextarea1">Further Study:</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="separate items with new lines"></textarea>
+      </div>-->
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+
+{% endblock content %}

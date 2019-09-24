@@ -1,0 +1,164 @@
+{% extends 'make_charts/base.html' %}
+{% block content %}
+
+        <!-- Breadcrumbs-->
+        <!--<ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Tables</li>
+        </ol>-->
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Session 9/23/29, <a href="#">Cracking The Coding Interview,</a> Large Database Design (pg 172)</div>
+          <div class="card-body">
+            <!--########## Form #########-->
+            <form action="TODO" method="post">
+              {% csrf_token %}
+              <div class="form-row align-items-center">
+              <div class="col">
+                <label>Title</label>
+                <input type="text" class="form-control" placeholder="(eg. Q 9.1 Data Structures">
+              </div>
+              <div class="col">
+                <label for="formControlRange">Confidence</label>
+                  <input type="range" class="form-control-range" id="formControlRange">
+                  <label>(low to high)</label>
+              </div>
+              <div class="col-auto my-1">
+                  <div class="custom-control custom-checkbox mr-sm-2">
+                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                    <label class="custom-control-label" for="customControlAutosizing">Correct?</label>
+                  </div>
+                </div>
+              <!--<div class="col">
+                <label></label>
+                <input type="text" class="form-control" placeholder="Zip">
+              </div>-->
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>Topic...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>Point of Failure...</option>
+                    <option value="1">N/A</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>Tags...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                
+                
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label>New Tags:</label>
+                  <input type="text" class="form-control" placeholder="separate, each tag, with a, comma">
+                </div>
+                <div class="col-auto my-1 align-middle">
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </form>
+            <!--########## EndForm #########-->
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Confidence</th>
+                    <th>Correct?</th>
+                    <th>Topic</th>
+                    <th>Point of Failure</th>
+                    <th>Tags</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Title</th>
+                    <th>Confidence</th>
+                    <th>Answered Correctly</th>
+                    <th>Topic</th>
+                    <th>Point of Failure</th>
+                    <th>Tags</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr>
+                    <td>14.5 Multiple Appartments</td>
+                    <td>3</td>
+                    <td>no</td>
+                    <td>Databases</td>
+                    <td>panic</td>
+                    <td>scale, schema, denormalization</td>
+                  </tr>
+                  <tr>
+                    <td>14.0 Open Requests</td>
+                    <td>2</td>
+                    <td>no</td>
+                    <td>Databases</td>
+                    <td>misread the prompt</td>
+                    <td>SQL, Status</td>
+                  </tr>
+                  <tr>
+                    <td>14.7 Multiple Appartments</td>
+                    <td>3</td>
+                    <td>no</td>
+                    <td>Databases</td>
+                    <td>panic</td>
+                    <td>scale, schema, denormalization</td>
+                  </tr>
+                  <tr>
+                    <td>14.2 Open Requests</td>
+                    <td>1</td>
+                    <td>no</td>
+                    <td>Databases</td>
+                    <td>misread the prompt</td>
+                    <td>SQL, Status</td>
+                  </tr>
+                  <tr>
+                    <td>14.8 Multiple Appartments</td>
+                    <td>3</td>
+                    <td>no</td>
+                    <td>Databases</td>
+                    <td>panic</td>
+                    <td>scale, schema, denormalization</td>
+                  </tr>
+                  <tr>
+                    <td>14.2 Open Requests</td>
+                    <td>4</td>
+                    <td>no</td>
+                    <td>Databases</td>
+                    <td>misread the prompt</td>
+                    <td>SQL, Status</td>
+                  </tr>
+                </tbody>
+              </table>  
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+        <p class="small text-center text-muted my-5">
+          <em>More table examples coming soon...</em>
+        </p>
+
+      {% endblock %}
