@@ -1,4 +1,99 @@
 from django.db import models
-# from ../login_app/models import User
+from ../login_app/models import User
 
 # Create your models here.
+
+# Fail
+class Fail(models.model):
+    title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # related to Strategy, related_name="strategies"
+    # in questions: related to Question related_name="questions"
+    def __repr__(self):
+        return f"<Fail Object: {self.title}>"
+
+
+# Section
+class Section(models.Model):
+    title = models.CharField(max_length=200)
+    # linked to Question by related_name="questions")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, related_name="sections")
+    def __repr__(self):
+        return f"<Section Object: {self.title}>"
+
+# Resource
+class Resource(models.Model):
+    title = models.CharField(max_length=200)
+    # linked to Practice by related name="practice_sessions"
+    author = models.CharField(max_length=200, null=True, blank=True)
+    course = models.CharField(max_length=200, null=True, blank=True)
+    url = models.CharField(max_length=200, null=True, blank=True)
+    level = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self):
+        return f"<Resource Object: {self.title}>"
+
+
+# Practice session
+class Practice(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    resource = models.ForeignKey(Resource, related_name="practice_sessions")
+    # related to Strategy, related_name="strategies")
+    # related to Practice, related_name="questions"
+    def __repr__(self):
+        return f"<Practice Object: {self.date}, {self.resource}>"
+
+
+# Topic
+class Topic(models.Model):
+    title = models.CharField(max_length=200)
+    section = models.ForeignKey(Section, related_name="topics")
+    confidence = models.IntegerField()
+    # linked to Question by related_name="questions")
+    # related to Tag, related name="tags"
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self):
+        return f"<Topic Object: {self.title}>"
+
+# Question
+class Question(models.model):
+    answered_correctly = models.BooleanField(null=True)
+    # TODO: google "The default form widget for this field is NullBooleanSelect if null=True."
+    # related to Tag related_name="tags")
+    confidence = models.IntegerField()
+    section = models.ForeignKey(Section, related_name="questions")
+    practice_session = models.ForeignKey(Practice, related_name="questions")
+    topic = models.ForeignKey(Topic, related_name="questions")
+    point_of_failure = models.ForeignKey(Fail, related_name="questions")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self):
+        return f"<Question Object: {self.title}>"    
+
+
+
+# Tag
+class Tag(models.Model):
+    title = models.CharField(max_length=200)
+    topics = models.ManyToManyField(Topic, related_name="tags")
+    questions = models.ManyToManyField(Question, related_name="tags")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self):
+        return f"<Tag Object: {self.title}>"
+
+# Strategy
+class Strategy(models.Model):
+    title = models.CharField(max_length=200)
+    practice_sessions = models.ManyToManyField(Practice, related_name="strategies")
+    points_of_failure = models.ManyToManyField(Question, related_name="strategies")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self):
+        return f"<Strategy Object: {self.date}>"
+
