@@ -96,6 +96,7 @@ class Tag(models.Model):
 class Strategy(models.Model):
     title = models.CharField(max_length=200)
     # todo: notes
+    # todo topics
     practice_sessions = models.ManyToManyField(Practice, related_name="strategies")
     points_of_failure = models.ManyToManyField(Fail, related_name="strategies")
     created_at = models.DateTimeField(auto_now_add=True)

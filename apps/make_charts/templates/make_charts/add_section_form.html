@@ -1,0 +1,16 @@
+
+{% block content %}
+
+<form action="/section/add" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <div class="form-row">
+      <div class="col">
+        <label for="exampleFormControlInput1">Title:</label>
+        <input type="text" class="form-control" name="title" placeholder="Ex: Physics">
+          <span class="input-group-btn"><button type="submit" class="btn btn-primary align-bottom">Add</button>
+        </div>
+    </div>
+  </div>
+</form>
+{% endblock content %}
