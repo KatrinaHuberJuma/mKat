@@ -25,5 +25,10 @@ q.section.user.first_name
 q.tags.add(Tag.objects.create(title="my tag"))
 q.tags.add(Tag.objects.create(title="my other tag"))
 
+tg = Tag.objects.first()
+tg.topics.add(Topic.objects.first())
+tg.topics.first()
+a_topic = tg.topics.first()
+a_topic.tags.first()
 
 

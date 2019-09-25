@@ -5,6 +5,7 @@ from .models import User
 
 
 def root(request):
+    print("*** login app > views > root ***"*4)
     print(User.objects.all())
     return render(request, "login_app/index.html")
 
@@ -17,7 +18,8 @@ def login(request):
             if request.POST["password"] == this_user.hashed_pw:
                 request.session['first_name'] = this_user.first_name
                 request.session['last_name'] = this_user.last_name
-                return redirect("/login/success")
+                request.session['id'] = this_user.id
+                return redirect("/")
             errors['password_oopsie_error']= "You seem to have forgotten your password. Too bad for you, we for sure don't save your plaintext password so get a new email and come back."
         except:
             errors['email_oopsie_error']=  "No user exists with this email, go ahead and register!"
@@ -46,11 +48,10 @@ def reg(request):
             first_name = request.POST["first_name"]
             last_name = request.POST["last_name"]
             email = request.POST["email"]
-            birthday = request.POST["birthday"]
-            new_user = User.objects.create(first_name=first_name, last_name=last_name, email=email, hashed_pw=password, birthday=birthday)
+            new_user = User.objects.create(first_name=first_name, last_name=last_name, email=email, hashed_pw=password)
             request.session['first_name'] = new_user.first_name
             request.session['last_name'] = new_user.last_name
-    return redirect("/login/success")
+    return redirect("/")
 
 def success(request):
     if "first_name" in request.session: # there is also a decorator to do this, see make_charts.views.index
