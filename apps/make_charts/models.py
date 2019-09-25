@@ -1,10 +1,10 @@
 from django.db import models
-from ../login_app/models import User
+# from ..login_app.models import User
 
 # Create your models here.
 
 # Fail
-class Fail(models.model):
+class Fail(models.Model):
     title = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -20,7 +20,7 @@ class Section(models.Model):
     # linked to Question by related_name="questions")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, related_name="sections")
+    user = models.ForeignKey('login_app.User', related_name="sections")
     def __repr__(self):
         return f"<Section Object: {self.title}>"
 
@@ -61,8 +61,9 @@ class Topic(models.Model):
         return f"<Topic Object: {self.title}>"
 
 # Question
-class Question(models.model):
-    answered_correctly = models.BooleanField(null=True)
+class Question(models.Model):
+    title = models.CharField(max_length=200)
+    answered_correctly = models.NullBooleanField(null=True)
     # TODO: google "The default form widget for this field is NullBooleanSelect if null=True."
     # related to Tag related_name="tags")
     confidence = models.IntegerField()

@@ -25,7 +25,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
-    birthday = models.DateField(auto_now=False, auto_now_add=False)
+    # birthday = models.DateField(auto_now=False, auto_now_add=False)
     # email = models.EmailField(max_length=255) TODO: read up on this
     hashed_pw = models.CharField(max_length=255)
     def __repr__(self):
