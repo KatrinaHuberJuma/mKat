@@ -3,10 +3,11 @@
 
 <form id="topicForm" action="/topic/add" method="post">
         {% csrf_token %}
-        {{ topicForm.as_p }}
-        <select id="id_section" name="section" required="">
-        {% for section in sections %}
-          <option value="{{section.id}}">{{section.title}}</option>
+        {{ tagForm.as_p }}
+        <h1>IAM HERE</h1>
+        <select id="id_topic" name="topic" required="">
+        {% for topic in topics %}
+          <option value="{{topic.id}}">{{topic.title}}</option>
         {% endfor %}
         </select>
   <div class="form-group">

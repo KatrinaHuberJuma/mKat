@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 
+
 # Fail
 class Fail(models.Model):
     title = models.CharField(max_length=45)
@@ -23,7 +24,7 @@ class Section(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey('login_app.User', related_name="sections", default=1)
     def __repr__(self):
-        return f"<Section Object: {self.title}>"
+        return self.title
 
 # Resource
 class Resource(models.Model):
@@ -56,7 +57,7 @@ class Topic(models.Model):
     title = models.CharField(max_length=45)
     section = models.ForeignKey(Section, related_name="topics", default=1)
     # todo: further study 
-    confidence = models.IntegerField()
+    # confidence = models.IntegerField()
     # linked to Question by related_name="questions")
     # related to Tag, related name="tags"
     created_at = models.DateTimeField(auto_now_add=True)

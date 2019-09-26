@@ -4,14 +4,10 @@
 <form id="sectionForm" action="/section/add" method="post">
         {% csrf_token %}
         {{ secForm.as_p }}
-  <div class="form-group">
-    <div class="form-row"></div>
-        </div>  
-        <div class="form-row">
+ 
+      <div class="form-row">
           <span class="input-group-btn"><button type="submit" class="btn btn-primary align-bottom">Add</button>
-        </div>
     </div>
-  </div>
 </form>
 
 
