@@ -183,6 +183,29 @@
   <script src="{% static 'make_charts/js/demo/chart-bar-demo.js' %}"></script>
   <script src="{% static 'make_charts/js/demo/chart-pie-demo.js' %}"></script>
 
+
+  <!--maybe break this into new module-->
+  <script>
+  // TODO why can't I change this to change in any way???
+  $('form').submit(function(e){
+    console.log($(this).hasId("#sectionForm"))
+    e.preventDefault()
+    if ($(this).hasId("#sectionForm")){
+      console.log("has the id sectionForm")
+        $.ajax({
+        url: '/section/create',
+        method: 'post',
+        data: $("#id_section_title").val()
+        success: function(serverResponse){
+          console.log("Received this from server: ", serverResponse)
+          console.log("I should probably put that in the DOM...")
+        }
+      })
+    }
+  })
+  </script>
+  
+
 </body>
 
 </html>

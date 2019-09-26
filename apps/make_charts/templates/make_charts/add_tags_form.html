@@ -1,11 +1,12 @@
 
 {% block content %}
 
-<form id="sectionForm" action="/section/add" method="post">
-        {% csrf_token %}
-        {{ secForm.as_p }}
+<form action="/section/add" method="post">
+  {% csrf_token %}
   <div class="form-group">
-    <div class="form-row"></div>
+    <div class="form-row">
+          <label for="exampleFormControlInput1">Title:</label>
+          <input type="text" class="form-control" name="title" placeholder="Ex: Physics">
         </div>  
         <div class="form-row">
           <span class="input-group-btn"><button type="submit" class="btn btn-primary align-bottom">Add</button>
@@ -13,8 +14,4 @@
     </div>
   </div>
 </form>
-
-
-
-
 {% endblock content %}

@@ -5,7 +5,7 @@ from django.db import models
 
 # Fail
 class Fail(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey('login_app.User', related_name="points_of_failure", default=1)
@@ -17,7 +17,7 @@ class Fail(models.Model):
 
 # Section
 class Section(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     # linked to Question by related_name="questions")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -27,12 +27,12 @@ class Section(models.Model):
 
 # Resource
 class Resource(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     # linked to Practice by related name="practice_sessions"
     # todo: further study
-    author = models.CharField(max_length=200, null=True, blank=True)
-    course = models.CharField(max_length=200, null=True, blank=True)
-    url = models.CharField(max_length=200, null=True, blank=True)
+    author = models.CharField(max_length=45, null=True, blank=True)
+    course = models.CharField(max_length=45, null=True, blank=True)
+    url = models.CharField(max_length=45, null=True, blank=True)
     user = models.ForeignKey('login_app.User', related_name="resources", default=1)
     level = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,7 +53,7 @@ class Practice(models.Model):
 
 # Topic
 class Topic(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     section = models.ForeignKey(Section, related_name="topics", default=1)
     # todo: further study 
     confidence = models.IntegerField()
@@ -66,7 +66,7 @@ class Topic(models.Model):
 
 # Question
 class Question(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     answered_correctly = models.NullBooleanField(null=True)
     # TODO: google "The default form widget for this field is NullBooleanSelect if null=True."
     # related to Tag related_name="tags")
@@ -84,7 +84,7 @@ class Question(models.Model):
 
 # Tag
 class Tag(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     topics = models.ManyToManyField(Topic, related_name="tags")
     questions = models.ManyToManyField(Question, related_name="tags")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -94,7 +94,7 @@ class Tag(models.Model):
 
 # Strategy
 class Strategy(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=45)
     # todo: notes
     # todo topics
     practice_sessions = models.ManyToManyField(Practice, related_name="strategies")

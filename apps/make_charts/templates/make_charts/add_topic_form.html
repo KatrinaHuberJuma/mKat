@@ -1,9 +1,9 @@
 
 {% block content %}
 
-<form id="sectionForm" action="/section/add" method="post">
+<form id="topicForm" action="/topic/add" method="post">
         {% csrf_token %}
-        {{ secForm.as_p }}
+        {{ topicForm.as_p }}
   <div class="form-group">
     <div class="form-row"></div>
         </div>  
@@ -13,8 +13,6 @@
     </div>
   </div>
 </form>
-
-
 
 
 {% endblock content %}

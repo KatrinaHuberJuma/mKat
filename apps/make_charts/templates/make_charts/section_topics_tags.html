@@ -1,5 +1,18 @@
 {% extends 'make_charts/base.html' %}
 {% block content %}
-{% include 'make_charts/add_section_form.html' %}
+
+
+
+
+<div class="row">
+    <div class="col">
+    {% include 'make_charts/add_section_form.html' %}
+    </div>
+    <div class="col">
+    {% include 'make_charts/add_topic_form.html' %}
+    </div>
+</div>
+
+
 <!--add include topics and tags-->
 {% endblock content %}
