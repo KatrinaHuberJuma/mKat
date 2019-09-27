@@ -1,22 +1,19 @@
 
 {% block content %}
 
-<form id="topicForm" action="/topic/add" method="post">
+<form id="tagForm" action="/tag/add" method="post">
         {% csrf_token %}
         {{ tagForm.as_p }}
-        <h1>IAM HERE</h1>
-        <select id="id_topic" name="topic" required="">
+        <label for="id_tag">Select topics for these tags</label> 
+        <select class="js-example-basic-multiple" multiple="multiple" id="id_tag" name="tags_topic" required="">
         {% for topic in topics %}
-          <option value="{{topic.id}}">{{topic.title}}</option>
+          <option value="{{topic.id}}">{{topic.id}}|{{topic.title}}</option>
         {% endfor %}
         </select>
   <div class="form-group">
-    <div class="form-row"></div>
-        </div>  
         <div class="form-row">
-          <span class="input-group-btn"><button type="submit" class="btn btn-primary align-bottom">Add</button>
+          <span class="input-group-btn"><input type="submit" value="add" class="btn btn-primary align-bottom"></input>
         </div>
-    </div>
   </div>
 </form>
 

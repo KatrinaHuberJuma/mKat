@@ -1,23 +1,42 @@
 
 {% block content %}
 
-<form id="topicForm" action="/topic/add" method="post">
+<div class="card-header">Add Topic</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Dark card title</h5>
+    <div class="card-text">
+      <form id="topicForm" action="/topic/add" method="post">
         {% csrf_token %}
         {{ topicForm.as_p }}
-        <select id="id_section" name="section" required="">
+        <select class="js-example-basic-multiple" id="id_section" name="section" required="">
         {% for section in sections %}
           <option value="{{section.id}}">{{section.title}}</option>
         {% endfor %}
         </select>
+
+        <div class="form-group">
+          <select class="js-example-basic-multiple" multiple="multiple" id="id_tag" name="topic_tags" required="">
+          {% for tag in tags %}
+            <option value="{{tag.id}}">{{tag.title}}</option>
+          {% endfor %}
+          </select>
+        </div>
+    </div>
   <div class="form-group">
-    <div class="form-row"></div>
-        </div>  
         <div class="form-row">
           <span class="input-group-btn"><button type="submit" class="btn btn-primary align-bottom">Add</button>
         </div>
     </div>
-  </div>
 </form>
+</div>
+</div>
+<div class="card border-dark mb-3">
+  <div class="card-header">Header</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Dark card title</h5>
+    <p class="card-text">{% include 'make_charts/add_tag_form.html' %}</p>
+  </div>
+</div>
 
 
 {% endblock content %}
