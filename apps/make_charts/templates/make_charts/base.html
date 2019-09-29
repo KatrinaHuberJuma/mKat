@@ -104,10 +104,6 @@
   </div>
   <!-- /#wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -170,15 +166,18 @@
     //   choices.push([key, val])
 
     // })
-    console.log(choices)
+    // console.log(choices)
+    $(this).slideUp()
+    console.log( $(this).serialize())
     $.ajax({
       url: currentUrl,
       method: 'post',
-      data: {
-        "csrfmiddlewaretoken": $('[name="csrfmiddlewaretoken"]').val(),
-        "title": $(this).find('.title').val(),
-        // "tags": choices
-        },
+      data: $(this).serialize(),
+      // {
+      //   "csrfmiddlewaretoken": $('[name="csrfmiddlewaretoken"]').val(),
+      //   "title": $(this).find('.title').val(),
+      //   // "tags": choices
+      //   },
       success: function(serverResponse){
         
           // Replace the html inside a div with the class "posts" with the server response
@@ -193,6 +192,7 @@
     $('.js-example-basic-multiple').select2();
 });
 </script>
+
 </body>
 
 </html>

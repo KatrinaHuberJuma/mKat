@@ -16,6 +16,31 @@ def dashboard(request):
     }
     return render(request, 'make_charts/dashboard.html', context)
 
+def pie_chart(request):
+    fails = Fail.objects.exclude(title="N/A")
+    questions = Question.objects.filter(answered_correctly=False)
+    questions_by_fail ={ }
+    # print(questions)
+    # print(fails)
+    for f in fails:
+        questions_by_fail[f.id] = {'title': f.title, "victims": [] }
+
+    for q in questions:
+        questions_by_fail[q.point_of_failure.id]['victims'].append(q.id)
+    # print(questions_by_fail)
+    labels = []
+    body_count = []
+
+    for key in questions_by_fail:
+        labels.append(questions_by_fail[key]['title'])
+        body_count.append(len(questions_by_fail[key]['victims']))
+
+    my_obj = {
+        "labels": labels,
+        "data":body_count,
+        "backgroundColor": ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+    }
+    return JsonResponse(my_obj)
 
 # @login_required(login_url='/login/') #TODO: add back in
 # def add_questions(request):
@@ -62,6 +87,48 @@ def add_section(request):
     context = add_section_context()
     return render(request, 'make_charts/section_topics_tags.html', context)
 
+# @login_required(login_url='/login/') #TODO: add back in
+def add_topic(request):
+    context = add_section_context()
+    if request.method == 'POST':
+        # bound_form = TopicForm(request.POST)
+        # print(bound_form)
+        # if bound_form.is_valid():
+        #     this_user = User.objects.last() #TODO: make this the user in session!!!!!!!!
+        # sec = Section.objects.get(id=request.POST.get('id_section'))
+        print(request.POST.get('id_section'))
+        #     # tags 
+        # topic = Topic.objects.create(title=request.POST['title'], section=sec)
+        
+        # print(topic)
+        # topic.save()
+    return render(request, 'make_charts/section_topics_tags.html', context)
+
+# @login_required(login_url='/login/') #TODO: add back in
+def add_tag(request):
+    context = add_section_context()
+    if request.method == 'POST':
+        print("*"*20)
+        print(request.POST['tag_title'])  #<QueryDict: 
+        print(request.POST['tags_topic'])  #<QueryDict: 
+                                        #{'csrfmiddlewaretoken': ['TQPBV2iCXdAvpfR0dzAJnz3egRL1Ok1QERXYX3Qc9JxGNuqeCeHfoZW6Wak0Mtex'], 
+                                        #'title': ['Tag title here']}>
+        # this_user = User.objects.last()
+        return render(request, 'make_charts/section_topics_tags.html', context)
+    
+    return render(request, 'make_charts/section_topics_tags.html', context)
+
+
+# def create_section(request):
+#     payload = {'success': True}
+#     print("hey line 44")
+#     return JsonResponse(payload)
+
+
+# def create_section(request):
+    
+
+
 
 # # @login_required(login_url='/login/') #TODO: add back in
 # def create_section(request):
@@ -77,42 +144,3 @@ def add_section(request):
 #         return render(request, 'make_charts/section_topics_tags.html', context)
 #     context = add_section_context()
 #     return render(request, 'make_charts/section_topics_tags.html', context)
-
-# @login_required(login_url='/login/') #TODO: add back in
-def add_topic(request):
-    context = add_section_context()
-    print("*********first tag context********"*4)
-    print(context['tags'])
-    print("*****************"*4)
-    if request.method == 'POST':
-        bound_form = TopicForm(request.POST)
-        print(bound_form)
-        if bound_form.is_valid():
-            this_user = User.objects.last() #TODO: make this the user in session!!!!!!!!
-            sec = Section.objects.get(id=request.POST["section"])
-            Topic.objects.create(title=request.POST['topic_title'], section=sec)
-    return render(request, 'make_charts/section_topics_tags.html', context)
-
-# @login_required(login_url='/login/') #TODO: add back in
-def add_tag(request):
-    context = add_section_context()
-    if request.method == 'POST':
-        print(request.POST)  #<QueryDict: 
-                                        #{'csrfmiddlewaretoken': ['TQPBV2iCXdAvpfR0dzAJnz3egRL1Ok1QERXYX3Qc9JxGNuqeCeHfoZW6Wak0Mtex'], 
-                                        #'title': ['Tag title here']}>
-        easy_dict = request.body
-        print("*"*40)
-        print(easy_dict)
-        return render(request, 'make_charts/section_topics_tags.html', context)
-    
-    return render(request, 'make_charts/section_topics_tags.html', context)
-
-
-# def create_section(request):
-#     payload = {'success': True}
-#     print("hey line 44")
-#     return JsonResponse(payload)
-
-
-# def create_section(request):
-    

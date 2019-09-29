@@ -14,7 +14,8 @@ class Fail(models.Model):
     # in questions: related to Question related_name="questions"
     def __repr__(self):
         return f"<Fail Object: {self.title}>"
-
+    def __str__(self):
+        return 'Fail: {}'.format(self.title)
 
 # Section
 class Section(models.Model):
@@ -25,6 +26,8 @@ class Section(models.Model):
     user = models.ForeignKey('login_app.User', related_name="sections", default=1)
     def __repr__(self):
         return self.title
+    def __str__(self):
+        return 'Section: {}'.format(self.title)
 
 # Resource
 class Resource(models.Model):
@@ -40,7 +43,8 @@ class Resource(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):
         return f"<Resource Object: {self.title}>"
-
+    def __str__(self):
+        return 'Resource: {}'.format(self.title)
 
 # Practice session
 class Practice(models.Model):
@@ -50,7 +54,8 @@ class Practice(models.Model):
     # related to Practice, related_name="questions"
     def __repr__(self):
         return f"<Practice Object: {self.date}, {self.resource}>"
-
+    def __str__(self):
+        return 'Practice: {}'.format(self.date)
 
 # Topic
 class Topic(models.Model):
@@ -64,6 +69,8 @@ class Topic(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):
         return f"<Topic Object: {self.title}>"
+    def __str__(self):
+        return 'Topic: {}'.format(self.title)
 
 # Question
 class Question(models.Model):
@@ -80,7 +87,8 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):
         return f"<Question Object: {self.title}>"    
-
+    def __str__(self):
+        return 'Question: {}'.format(self.title)
 
 
 # Tag
@@ -92,6 +100,8 @@ class Tag(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):
         return f"<Tag Object: {self.title}>"
+    def __str__(self):
+        return 'Tag: {}'.format(self.title)
 
 # Strategy
 class Strategy(models.Model):
@@ -104,4 +114,9 @@ class Strategy(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):
         return f"<Strategy Object: {self.date}>"
+    def __str__(self):
+        return 'Strategy: {}'.format(self.title)
 
+# notes table
+    # date
+    # tag fk
