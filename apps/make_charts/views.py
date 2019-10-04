@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .forms import SectionForm, TopicForm, TagForm
+from django.db.models import Count
+from fractions import Fraction
 
 
 # Create your views here.
@@ -17,7 +19,7 @@ def dashboard(request):
     return render(request, 'make_charts/dashboard.html', context)
 
 def pie_chart(request):
-    fails = Fail.objects.exclude(title="N/A")
+    fails = Fail.objects.all()
     questions = Question.objects.filter(answered_correctly=False)
     questions_by_fail ={ }
     # print(questions)
@@ -26,19 +28,55 @@ def pie_chart(request):
         questions_by_fail[f.id] = {'title': f.title, "victims": [] }
 
     for q in questions:
+        # questions_by_fail  | question>fail id        
         questions_by_fail[q.point_of_failure.id]['victims'].append(q.id)
     # print(questions_by_fail)
     labels = []
     body_count = []
 
     for key in questions_by_fail:
-        labels.append(questions_by_fail[key]['title'])
-        body_count.append(len(questions_by_fail[key]['victims']))
+        if not questions_by_fail[key]['title'] == "N/A":
+    
+            labels.append(questions_by_fail[key]['title'])
+            body_count.append(len(questions_by_fail[key]['victims']))
 
     my_obj = {
         "labels": labels,
         "data":body_count,
-        "backgroundColor": ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+    }
+    return JsonResponse(my_obj)
+
+
+
+
+def line_chart(request):
+    # questions = Question.objects.all()
+    # # pubs = Publisher.objects.annotate(num_books=Count('book'))
+    # Author.objects.values('name').annotate(average_rating=Avg('book__rating'))
+    practices = Practice.objects.all()
+    info_dict = {}
+    for p in practices:
+        p_questions = p.questions.all()
+        if p.date.date() not in info_dict.keys():
+            info_dict[p.date.date()] = {"correct": 0, "incorrect":0, "fraction":0}
+        for q in p_questions:
+            if q.answered_correctly:
+                info_dict[p.date.date()]['correct']+=1
+            else:
+                info_dict[p.date.date()]['incorrect']+=1
+        
+        if info_dict[p.date.date()]['incorrect'] > 0 and len(p_questions) > 0:
+            info_dict[p.date.date()]['fraction'] = Fraction(info_dict[p.date.date()]['correct'], len(p_questions))
+        
+    labels = []
+    data = []
+    for key in info_dict:
+        labels.append(key)
+        percent_correct = int(info_dict[key]['fraction']*100)
+        data.append(percent_correct)
+    my_obj = {
+        "labels": labels,
+        "data": data,
     }
     return JsonResponse(my_obj)
 
@@ -48,6 +86,40 @@ def pie_chart(request):
 #         'user': User.objects.first()
 #     }
 #     return render(request, 'make_charts/practice_questions.html', context)
+
+
+def bar_chart(request):
+    questions = Question.objects.filter(answered_correctly=False)
+    info_dict = {}
+    for q in questions:
+        q_tags = q.tags.all()
+        for tag in q_tags:
+            if tag not in info_dict.keys():
+                info_dict[tag.id] = {"title": tag.title, "correct": 0, "incorrect":0, "fraction":0}
+            if q.answered_correctly:
+                info_dict[tag.id]['correct'] += 1
+            else:
+                info_dict[tag.id]['incorrect'] += 1
+        if info_dict[tag.id]['incorrect'] > 0 and len(q_tags) > 0:
+            info_dict[tag.id]['fraction'] = Fraction(info_dict[tag.id]['incorrect'], len(q_tags))
+        
+    labels = []
+    data = []
+    for key in info_dict:
+        labels.append(info_dict[key]['title'])
+        percent_incorrect = int(info_dict[key]['fraction']*100)
+        if percent_incorrect >= 30:
+            data.append(percent_incorrect)
+
+    print(labels)
+    my_obj = {
+        "labels": labels,
+        "data": data,
+    }
+    return JsonResponse(my_obj)
+
+
+
 
 
 # @login_required(login_url='/login/') #TODO: add back in

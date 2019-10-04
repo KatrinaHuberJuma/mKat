@@ -3,52 +3,66 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
-    datasets: [{
-      label: "Sessions",
-      lineTension: 0.3,
-      backgroundColor: "rgba(2,117,216,0.2)",
-      borderColor: "rgba(2,117,216,1)",
-      pointRadius: 5,
-      pointBackgroundColor: "rgba(2,117,216,1)",
-      pointBorderColor: "rgba(255,255,255,0.8)",
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-      pointHitRadius: 50,
-      pointBorderWidth: 2,
-      data: [60, 52, 67, 70, 68, 78, 71, 83, 85, 89, 92, 91, 98],
-    }],
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          min: 40,
-          max: 100,
-          maxTicksLimit: 5
-        },
-        gridLines: {
-          color: "rgba(0, 0, 0, .125)",
-        }
-      }],
+var line_ctx = document.getElementById("myAreaChart").getContext('2d');
+$.ajax({
+    method: "GET",
+    url: "/line",
+    success: function(data){
+        console.log(data)
+        var chartData = data.data
+        var labels = data.labels
+        
+        console.log("chart-line-demo.js")
+        var myChart = new Chart(line_ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: "% Correct",
+                lineTension: 0,
+                backgroundColor: "rgba(2,117,216,0.2)",
+                borderColor: "rgba(2,117,216,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                pointHitRadius: 50,
+                pointBorderWidth: 2,
+                data: chartData,
+              }],
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  time: {
+                    unit: 'date'
+                  },
+                  gridLines: {
+                    display: true
+                  },
+                  ticks: {
+                    maxTicksLimit: 14
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    max: 100, 
+                    maxTicksLimit: 10
+                  },
+                  gridLines: {
+                    color: "rgba(0, 0, 0, .125)",
+                  }
+                }],
+              },
+              legend: {
+                display: false
+              }
+            },
+        }) 
     },
-    legend: {
-      display: false
+    errors: function(error_data){
+        console.log(error_data)
     }
-  }
-});
+})

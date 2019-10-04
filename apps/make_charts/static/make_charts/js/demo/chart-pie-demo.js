@@ -8,7 +8,7 @@ console.log("chart-pie-demo.js line 4")
 
 
 
-var ctx = document.getElementById("myPieChart").getContext('2d');
+var pie_ctx = document.getElementById("myPieChart").getContext('2d');
 
 
 
@@ -20,13 +20,14 @@ $.ajax({
         var defaultData = data.data
         var labels = data.labels
         console.log("chart-pie-demo.js line 22")
-        var myChart = new Chart(ctx, {
+        var myChart = new Chart(pie_ctx, {
             type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
                     label: 'my neat string',
                     data: defaultData,
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
                 }]
             }
         })
@@ -36,7 +37,7 @@ $.ajax({
     }
 })
 // ____________________________________________________
-// var myPieChart = new Chart(ctx, {
+// var myPieChart = new Chart(pie_ctx, {
 //   type: 'pie',
 //   data: {
 //     labels: ["New Vocab", "Out of Time", "Misunderstood the Question", "Brain Fart"],
