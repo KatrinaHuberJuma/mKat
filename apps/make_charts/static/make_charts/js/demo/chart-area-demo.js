@@ -8,11 +8,11 @@ $.ajax({
     method: "GET",
     url: "/line",
     success: function(data){
-        console.log(data)
+        // console.log(data)
         var chartData = data.data
         var labels = data.labels
         
-        console.log("chart-line-demo.js")
+        // console.log("chart-line-demo.js")
         var myChart = new Chart(line_ctx, {
             type: 'line',
             data: {
@@ -63,6 +63,6 @@ $.ajax({
         }) 
     },
     errors: function(error_data){
-        console.log(error_data)
+        // console.log(error_data)
     }
 })

@@ -155,7 +155,11 @@ def add_section(request):
         # print(new_section)
         context = add_section_context()
         context['section'] = new_section
-        return render(request, 'make_charts/section_selected.html', context)
+        return redirect("/add_form")
+    context = add_section_context()
+    return redirect("/add_form")
+    
+def add_form(request):
     context = add_section_context()
     return render(request, 'make_charts/section_topics_tags.html', context)
 
@@ -174,22 +178,21 @@ def add_topic(request):
         
         # print(topic)
         # topic.save()
-    return render(request, 'make_charts/section_topics_tags.html', context)
+    return redirect("/add_form")
 
 # @login_required(login_url='/login/') #TODO: add back in
 def add_tag(request):
     context = add_section_context()
     if request.method == 'POST':
         print("*"*20)
-        print(request.POST['tag_title'])  #<QueryDict: 
-        print(request.POST['tags_topic'])  #<QueryDict: 
-                                        #{'csrfmiddlewaretoken': ['TQPBV2iCXdAvpfR0dzAJnz3egRL1Ok1QERXYX3Qc9JxGNuqeCeHfoZW6Wak0Mtex'], 
-                                        #'title': ['Tag title here']}>
-        # this_user = User.objects.last()
-        return render(request, 'make_charts/section_topics_tags.html', context)
+        print('the post:')  
+        print(request.POST)  # <QueryDict: {'csrfmiddlewaretoken': 
+                                    # ['3hftKDhheVXqoXbCpJ8XFWWaEvhbU6aoo1JW8jYJkZVvG6CJGAVpkd28Mc97EeWq'], 
+                                    # 'tag_title': ['three 51'], 
+                                    # 'tags_topic': ['28', '30', '31']}>
+        return render(request, 'make_charts/register.html', context)
     
-    return render(request, 'make_charts/section_topics_tags.html', context)
-
+    return redirect("/add_form")
 
 # def create_section(request):
 #     payload = {'success': True}
@@ -213,6 +216,6 @@ def add_tag(request):
 #             this_user = User.objects.last() #TODO: make this the user in session!!!!!!!!
 #             Section.objects.create(title=request.POST['section_title'], user=this_user)
 #             context = context = add_section_context()
-#         return render(request, 'make_charts/section_topics_tags.html', context)
+#         return redirect("/add_form")
 #     context = add_section_context()
 #     return render(request, 'make_charts/section_topics_tags.html', context)

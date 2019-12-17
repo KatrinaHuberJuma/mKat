@@ -58,13 +58,13 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/add_practice">Add Practice</a>
+          <a class="dropdown-item" href="/section/add">Add Section</a>
+          <a class="dropdown-item" href="/">Charts</a>
+          <!--<div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Other Pages:</h6>
           <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
+          <a class="dropdown-item" href="blank.html">Blank Page</a>-->
         </div>
       </li>
       <li class="nav-item">
@@ -152,35 +152,16 @@
   $('form').submit(function(e){
     e.preventDefault()
     var currentUrl = $(this).attr('action')
-    // var title = $(this).find('.title')
-    // console.log(currentUrl + "*******")
-    // var choices = []
-    // <li class="select2-selection__choice" title="two-thirty-topic" data-select2-id="39">
-    // <span class="select2-selection__choice__remove" role="presentation">×</span>two-thirty-topic</li>
-    // $(this).find('.select2-selection__choice').each(function() {
-      
-    //   var val_str = this.attributes[1].nodeValue
-    //   var split_var_str = val_str.split("|")
-    //   let key = split_var_str[0]
-    //   var val = split_var_str[1]
-    //   choices.push([key, val])
-
-    // })
-    // console.log(choices)
+    
     $(this).slideUp()
-    console.log( $(this).serialize())
+    var data = $(this).serializeArray()
+    console.log(data)
     $.ajax({
       url: currentUrl,
       method: 'post',
-      data: $(this).serialize(),
-      // {
-      //   "csrfmiddlewaretoken": $('[name="csrfmiddlewaretoken"]').val(),
-      //   "title": $(this).find('.title').val(),
-      //   // "tags": choices
-      //   },
+      data: data,
+      
       success: function(serverResponse){
-        
-          // Replace the html inside a div with the class "posts" with the server response
           $('.current-section').html(serverResponse)
         }
     })

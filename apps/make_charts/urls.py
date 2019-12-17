@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^pie$', views.pie_chart),
     url(r'^line$', views.line_chart),
     url(r'^bar$', views.bar_chart),
+    url(r'^add_form$', views.add_form),
     url(r'^section/add$', views.add_section),
     url(r'^topic/add$', views.add_topic),
     url(r'^tag/add$', views.add_tag),

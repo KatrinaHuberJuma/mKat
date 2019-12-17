@@ -1,7 +1,7 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
-console.log("bar chart file connected")
+// console.log("bar chart file connected")
 // Bar Chart Example
 var bar_ctx = document.getElementById("myBarChart");
 
@@ -10,12 +10,12 @@ $.ajax({
     method: "GET",
     url: "/bar",
     success: function(data){
-          console.log(data)
+          // console.log(data)
           var chartData = data.data
           var labels = data.labels
 
           
-          console.log(data)
+          // console.log(data)
           var myChart = new Chart(bar_ctx, {
                 type: 'bar',
                 data: {

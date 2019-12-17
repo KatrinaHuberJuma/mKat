@@ -1,18 +1,22 @@
 
 {% block content %}
-
+<div class="card border-dark mb-3">
+  <div class="card-header">Header</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Dark card title</h5>
+    <!--<p class="card-text">-->
 <form id="tagForm" action="/tag/add" method="post">
         {% csrf_token %}
         {{ tagForm.as_p }}
         <label for="id_tag">Select topics for these tags</label> 
-        <select class="js-example-basic-multiple" multiple="multiple" id="id_tag" name="tags_topic" required="">
+        <select class="js-example-basic-multiple" multiple="multiple" name="tag_topics" required="">
         {% for topic in topics %}
           <option value="{{topic.id}}">{{topic.id}}|{{topic.title}}</option>
         {% endfor %}
         </select>
   <div class="form-group">
         <div class="form-row">
-          <span class="input-group-btn"><input type="submit" value="add" class="btn btn-primary align-bottom"></input>
+          <span class="input-group-btn"><input type="submit" value="add" class="btn btn-primary align-bottom"></span>
         </div>
   </div>
 </form>
