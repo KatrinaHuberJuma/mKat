@@ -190,6 +190,15 @@ def add_tag(request):
                                     # ['3hftKDhheVXqoXbCpJ8XFWWaEvhbU6aoo1JW8jYJkZVvG6CJGAVpkd28Mc97EeWq'], 
                                     # 'tag_title': ['three 51'], 
                                     # 'tags_topic': ['28', '30', '31']}>
+        print("*"*20)
+        print("*"*20)
+        topic_ids = [int(topic_id) for topic_id in request.POST.getlist("tag_topics")]
+        print(topic_ids)
+        tag = Tag.objects.create(title=request.POST['tag_title'])
+        for topic_id in topic_ids:
+            tag.topics.add(topic_id)
+        tag.save()
+        print(tag.topics.all())
         return render(request, 'make_charts/register.html', context)
     
     return redirect("/add_form")
@@ -205,17 +214,17 @@ def add_tag(request):
 
 
 
-# # @login_required(login_url='/login/') #TODO: add back in
-# def create_section(request):
-#     if request.method == 'POST':
-#         bound_form = SectionForm(request.POST)
-#         print("bound form *****"*4)
-#         print(bound_form)
-#         if bound_form.is_valid():
-#             print("bound form is vailid *****"*4)
-#             this_user = User.objects.last() #TODO: make this the user in session!!!!!!!!
-#             Section.objects.create(title=request.POST['section_title'], user=this_user)
-#             context = context = add_section_context()
-#         return redirect("/add_form")
-#     context = add_section_context()
-#     return render(request, 'make_charts/section_topics_tags.html', context)
+@login_required(login_url='/login/') #TODO: add back in
+def create_section(request):
+    if request.method == 'POST':
+        bound_form = SectionForm(request.POST)
+        print("bound form *****"*4)
+        print(bound_form)
+        if bound_form.is_valid():
+            print("bound form is vailid *****"*4)
+            this_user = User.objects.last() #TODO: make this the user in session!!!!!!!!
+            Section.objects.create(title=request.POST['section_title'], user=this_user)
+            context = context = add_section_context()
+        return redirect("/add_form")
+    context = add_section_context()
+    return render(request, 'make_charts/section_topics_tags.html', context)
